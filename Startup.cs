@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
+using System.Reflection;
 using System.Web.Http;
 
 [assembly: OwinStartup(typeof(API.Startup))]
@@ -12,10 +13,8 @@ namespace API
     {
         public void Configuration(IAppBuilder app)
         {
-            // Enable CORS if needed
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
-            // Configure OAuth
             var OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true, // for development only
@@ -27,7 +26,6 @@ namespace API
             app.UseOAuthAuthorizationServer(OAuthOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
-            // Enable Web API
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseWebApi(config);

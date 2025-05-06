@@ -17,7 +17,6 @@ public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
 
     public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
     {
-        // Allow any origin for testing
         context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
         Usuario usuario = new Usuario(context.UserName, context.Password);
